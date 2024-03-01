@@ -1,9 +1,26 @@
 import express from 'express'
 import dotenv from 'dotenv'
-
 dotenv.config({path:'../.env'})
+import 'express-async-errors'
 import { connectDb } from './app/config/connection.database.js '
+
+
+import authRouter from './route/auth/signup.route.js'
+
+
+//import all the middlewares
+import ErrorHandler from './app/http/middleware/ErrorHandler.middleware.js'
+import NotFoundHandler from './app/http/middleware/NoteFound.middleware.js'
+
 const app=express()
+app.use(express.json())
+
+
+app.use('/api/v1/auth/',authRouter)
+
+
+app.use(ErrorHandler)
+app.use(NotFoundHandler)
 
 const startServer=async()=>{
     console.log("Inside start server / api/index.js")
