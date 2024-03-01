@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes"
 class ValidationError extends CustomApiError{
     constructor(message){
         super(message)
-        this.statusCode=StatusCodes.NO_CONTENT
+        this.statusCode=StatusCodes.BAD_REQUEST
     }
 }
 

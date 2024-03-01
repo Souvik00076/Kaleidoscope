@@ -1,7 +1,11 @@
 
 import {ValidationError} from '../error/Error.index.js'
-const signUpUser=(req,res)=>{
-    const user={...req.body}
+import User from '../model/user.model.js'
+const signUpUser=async(req,res)=>{
+    const {name,email,password}=req.body
+    if(!name || !email || !password){
+        throw new ValidationError('Name, Email and Password are required')
+    }
     
     res.send({message:"Signup successfull"})
 }
