@@ -32,7 +32,7 @@ const Header = () => {
       </Button>
       
       
-      <div className='flex flex-row gap-2 items-center md:order-2'>
+      <div className='flex flex-row flex-row gap-2 items-center md:order-2'>
         <Button className='w-12 h-10 hidden sm:inline-flex' pill color='gray'>
           <ModeNightIcon/>
         </Button>
