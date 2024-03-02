@@ -6,7 +6,7 @@ const signUpUser=async(req,res)=>{
     if(!name || !email || !password){
         throw new ValidationError('Name, Email and Password are required')
     }
-    
+    console.log("called here")
     res.send({message:"Signup successfull"})
 }
 
