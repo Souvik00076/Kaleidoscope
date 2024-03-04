@@ -1,4 +1,4 @@
 import ValidationError from "./Validation.error.js"
-
-
-export  {ValidationError}
+import NotFoundError from "./NotFound.error.js"
+import ForBiddenError from "./ForBidden.error.js"
+export  {ValidationError,NotFoundError,ForBiddenError}

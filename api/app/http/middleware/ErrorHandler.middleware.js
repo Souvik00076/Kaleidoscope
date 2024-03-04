@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-
 const ErrorHandler=(err,req,res,next)=>{
     console.log(err)
     let customError = {

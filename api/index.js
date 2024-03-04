@@ -4,8 +4,8 @@ dotenv.config({path:'../.env'})
 import 'express-async-errors'
 import { connectDb } from './app/config/connection.database.js '
 import cors from 'cors'
-
-import authRouter from './route/auth/signup.route.js'
+import cookieParser from 'cookie-parser'
+import authRouter from './route/auth.route.js'
 
 
 //import all the middlewares
