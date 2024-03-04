@@ -16,11 +16,10 @@ const app=express()
 app.use(express.json())
 app.use(cors())
 
-
-app.use(ErrorHandler)
 app.use('/api/v1/auth/',authRouter)
-
+app.use(ErrorHandler)
 app.use(NotFoundHandler)
+
 const startServer=async()=>{
     console.log("Inside start server / api/index.js")
     const uri='mongodb+srv://souvikbhattacharjee00076:wUDMX7U1uaQMOb5y@cluster1.dyktolh.mongodb.net/Kaleidoscope?retryWrites=true&w=majority'

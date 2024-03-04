@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 const UserSchema=new mongoose.Schema({
-    name:{
+    username:{
         type:String,
         minLength:3,
         required:[true,'Name cannot be empty'],
-        unique:[true,'Username already present']
     },
     password:{
         type:String,
@@ -28,8 +27,8 @@ const UserSchema=new mongoose.Schema({
     }
 },{timestamps:true})
 
-UserSchema.methods.getName=function(){
-    return this.name
+UserSchema.methods.getUserName=function(){
+    return this.username
 }
 
 UserSchema.methods.getEmail=function(){
