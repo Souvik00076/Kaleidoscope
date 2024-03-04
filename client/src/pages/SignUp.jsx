@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
 import { MESSAGES } from '../constants'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const SignUp = () => {
   const [formData,setFormData]=useState({})
   const [errorMessage,setErrorMessage]=useState(null)
   const [loading,setLoading]=useState(false)
-  const [data,setData]=useState(null)
-
+  const navigate=useNavigate()
   const onHandleChange=(e)=>{
     
     setFormData({...formData,[e.target.id]:e.target.value})
@@ -25,7 +25,7 @@ const SignUp = () => {
 
   const onFormSubmit=async(e)=>{
       e && e.preventDefault()
-      console.log(JSON.stringify(formData))
+
       if(!formData.email || !formData.password || !formData.username){
         setErrorMessage(MESSAGES.field_empty_error)
         return 
@@ -44,16 +44,17 @@ const SignUp = () => {
           url: '/api/v1/auth/signup',
           data: JSON.stringify(formData),
         })
-      console.log(res)
+        const data=res.data
+        if(data.success===true) {
+          setErrorMessage(null)
+          navigate('/signin',{replace:true})
+        }
+          else setErrorMessage(res.msg)
     }catch(err){
       setErrorMessage(err.message)
     }
     setLoading(false)
-      
   }
-
-
-
   return (
     <div className='mt-[10rem] flex flex-col gap-12 lg:flex-row items-center w-[90%] lg:w-[70%]  container mx-auto'>
       <div className='flex-1'>  
