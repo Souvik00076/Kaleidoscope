@@ -69,13 +69,12 @@ const SignUp = () => {
       <div className='flex-1' onSubmit={onFormSubmit} onChange={onHandleChange}
             onKeyUp={onEnterPressed}>
         <form>
-          <div >
+          <div>
             <Label value='Username'/>
             <TextInput 
             id='username'
             placeholder='john1234'
-            required
-            
+            required 
           />
           </div>
           

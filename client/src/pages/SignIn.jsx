@@ -6,11 +6,16 @@ import { HiInformationCircle } from 'react-icons/hi'
 import { MESSAGES , ROUTES} from '../constants'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {signInStart,signInSuccess,signInFailure} from '../redux/user/UserSlice'
+import {  useDispatch,useSelector } from 'react-redux'
+
+
 const SignIn = () => {
   const [formData,setFormData]=useState({})
-  const [errorMessage,setErrorMessage]=useState(null)
-  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+  const [loading, error]=useSelector(state=>state.user)
+
   const onHandleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value})
   }
@@ -22,7 +27,7 @@ const SignIn = () => {
   const onFormSubmit=async(e)=>{
       e && e.preventDefault()
       if(!formData.email || !formData.password){
-        setErrorMessage(MESSAGES.field_empty_error)
+        dispatch(signInFailure(MESSAGES.field_empty_error))
         return 
       }
       setLoading(true)
@@ -37,14 +42,14 @@ const SignIn = () => {
         })
         const data=res.data
         if(data.success===true) {
-          setErrorMessage(null)
+          dispatch(signInSuccess(data))
           navigate('/home',{replace:true})
         }
-          else setErrorMessage(res.msg)
+        else dispatch(signInFailure(data.msg))
+
     }catch(err){
-      setErrorMessage(err.message)
+      dispatch(signInFailure(err.message))
     }
-    setLoading(false)
   }
   return (
     <div className='mt-[10rem] flex flex-col gap-12 lg:flex-row items-center w-[90%] lg:w-[70%]  container mx-auto'>
@@ -99,10 +104,10 @@ const SignIn = () => {
         <Link to='/signup' className='text-blue-500'> Sign Up</Link>
       </div>
       {
-      errorMessage && (
+      error && (
       <div className='mt-4 mb-8'>
       <Alert color="failure" icon={HiInformationCircle}>
-        {errorMessage}
+        {error}
       </Alert>
       </div>
       )}
