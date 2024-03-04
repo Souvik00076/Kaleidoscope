@@ -3,6 +3,6 @@ const Router=express.Router()
 
 import { signUpUser } from '../../app/http/controller/signup.controller.js'
 
-Router.route('/sign-up').post(signUpUser)
+Router.route('/signup').post(signUpUser)
 
 export default Router

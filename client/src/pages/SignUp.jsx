@@ -37,9 +37,12 @@ const SignUp = () => {
       setLoading(true)
       try{
         const res=await axios({
+          headers:{
+            'Content-Type':'application/json'
+          },
           method: 'post',
-          url: '/api/v1/auth/sign-up',
-          data: JSON.stringify(formData)
+          url: '/api/v1/auth/signup',
+          data: JSON.stringify(formData),
         })
       console.log(res)
     }catch(err){
