@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
-import { MESSAGES } from '../constants'
+import { MESSAGES, ROUTES } from '../constants'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -41,7 +41,7 @@ const SignUp = () => {
             'Content-Type':'application/json'
           },
           method: 'post',
-          url: '/api/v1/auth/signup',
+          url: ROUTES.SIGNUP,
           data: JSON.stringify(formData),
         })
         const data=res.data
