@@ -3,5 +3,8 @@ const MESSAGES={
     password_mismatch:"Password Do Not Match"
 }
 
-
-export {MESSAGES}
+const ROUTES={
+    SIGNUP:'/api/v1/auth/signup',
+    SIGNIN:'/api/v1/auth/signin'
+}
+export {MESSAGES,ROUTES}
