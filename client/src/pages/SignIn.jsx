@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {signInStart,signInSuccess,signInFailure} from '../redux/user/UserSlice'
 import {  useDispatch,useSelector } from 'react-redux'
-
+import GoogleAuth from '../components/GoogleAuth'
 
 const SignIn = () => {
   const [formData,setFormData]=useState({})
@@ -98,6 +98,7 @@ const SignIn = () => {
           }
           </Button>
       </form>
+      <GoogleAuth/>
       <div className='mt-[12px]'>
         <span>Don't Have an account?</span>
         <Link to='/signup' className='text-blue-500'> Sign Up</Link>
