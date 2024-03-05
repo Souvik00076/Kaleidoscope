@@ -14,8 +14,7 @@ const SignIn = () => {
   const [formData,setFormData]=useState({})
   const navigate=useNavigate()
   const dispatch=useDispatch()
-  const [loading, error]=useSelector(state=>state.user)
-
+  const {loading,error}=useSelector((state)=>state.user)
   const onHandleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value})
   }
@@ -30,7 +29,7 @@ const SignIn = () => {
         dispatch(signInFailure(MESSAGES.field_empty_error))
         return 
       }
-      setLoading(true)
+      dispatch(signInStart())
       try{
         const res=await axios({
           headers:{
