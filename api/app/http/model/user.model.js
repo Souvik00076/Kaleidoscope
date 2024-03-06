@@ -4,7 +4,7 @@ const UserSchema=new mongoose.Schema({
     username:{
         type:String,
         minLength:3,
-        required:[true,'Name cannot be empty'],
+        required:[true,'Username cannot be empty']
     },
     password:{
         type:String,
@@ -24,6 +24,10 @@ const UserSchema=new mongoose.Schema({
     subscribedUsers:{
         type:[String],
         default:[]
+    },
+    photourl:{
+        type:String,
+        default:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw3aWBsK6CM7SHNB-qYKS0pb&ust=1709808862222000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCKCR8cC834QDFQAAAAAdAAAAABAE'
     }
 },{timestamps:true})
 
@@ -33,6 +37,10 @@ UserSchema.methods.getUserName=function(){
 
 UserSchema.methods.getEmail=function(){
     return this.email
+}
+
+UserSchema.methods.getPhotoUrl=function(){
+    return this.photourl
 }
 
 UserSchema.pre('save', async function(next){

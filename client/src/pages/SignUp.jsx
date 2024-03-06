@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
-import { MESSAGES, ROUTES } from '../constants'
+import { MESSAGES,ROUTES } from '../constants.js'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 

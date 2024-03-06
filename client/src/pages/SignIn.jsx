@@ -3,7 +3,7 @@ import { Button, Label, TextInput, Alert,Spinner } from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
-import { MESSAGES , ROUTES} from '../constants'
+import { MESSAGES,ROUTES } from '../constants.js'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {signInStart,signInSuccess,signInFailure} from '../redux/user/UserSlice'
@@ -14,7 +14,7 @@ const SignIn = () => {
   const [formData,setFormData]=useState({})
   const navigate=useNavigate()
   const dispatch=useDispatch()
-  const {loading,error}=useSelector((state)=>state.user)
+  const {currentUser,loading,error}=useSelector((state)=>state.user)
   const onHandleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value})
   }
@@ -42,7 +42,7 @@ const SignIn = () => {
         const data=res.data
         if(data.success===true) {
           dispatch(signInSuccess(data))
-          navigate('/home',{replace:true})
+          navigate('/',{replace:true})
         }
         else dispatch(signInFailure(data.msg))
 
@@ -111,6 +111,7 @@ const SignIn = () => {
       </Alert>
       </div>
       )}
+     
       </div>
       
     </div>

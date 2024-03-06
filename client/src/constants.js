@@ -5,6 +5,7 @@ const MESSAGES={
 
 const ROUTES={
     SIGNUP:'/api/v1/auth/signup',
-    SIGNIN:'/api/v1/auth/signin'
+    SIGNIN:'/api/v1/auth/signin',
+    OAUTH_SIGN_IN:'api/v1/auth/oauth/google/signin'
 }
 export {MESSAGES,ROUTES}

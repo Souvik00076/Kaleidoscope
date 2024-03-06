@@ -33,9 +33,27 @@ const signInUser=async (req,res)=>{
     res.
     status(StatusCodes.OK).
     cookie('access_token',token,{
+        httpOnly:true,
         expires: new Date(Date.now() + 8 * 3600000) // cookie will be removed after 8 hours
     }).
     json({success:true,data:rest})
 }
-
-export  {signUpUser,signInUser}
+const authSignInUser=async (req,res)=>{
+    const {email,displayName:username,photoURL:photourl}=req.body
+    console.log(email," ",username," ",photourl)
+    let user=await User.findOne({email:email})
+    if(!user){
+        const password=email+username+Math.random()*100
+        user=await User.create({username,email,password,photourl})
+    }
+    const token=jwt.sign({id:user._id},'secret')
+    const {password,...rest}=user._doc
+    res.
+    status(StatusCodes.OK).
+    cookie('access_token',token,{
+        httpOnly:true,
+        expires: new Date(Date.now() + 8 * 3600000) // cookie will be removed after 8 hours
+    }).
+    json({success:true,data:rest})
+}
+export  {signUpUser,signInUser,authSignInUser}
