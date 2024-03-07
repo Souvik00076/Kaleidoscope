@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
 import { MESSAGES,ROUTES } from '../constants.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Navigate } from 'react-router-dom'
 import axios from 'axios'
 import {signInStart,signInSuccess,signInFailure} from '../redux/user/UserSlice'
 import {  useDispatch,useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ const SignIn = () => {
   const [formData,setFormData]=useState({})
   const navigate=useNavigate()
   const dispatch=useDispatch()
-  const {currentUser,loading,error}=useSelector((state)=>state.user)
+  const {loading,error}=useSelector((state)=>state.user)
   const onHandleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value})
   }
@@ -42,8 +42,9 @@ const SignIn = () => {
         const data=res.data
         if(data.success===true) {
           dispatch(signInSuccess(data))
-          navigate('/',{replace:true})
-        }
+         navigate('/',{replace:true})
+          
+          }
         else dispatch(signInFailure(data.msg))
 
     }catch(err){
