@@ -3,11 +3,19 @@ import {Avatar, Button, Dropdown, Navbar, TextInput} from 'flowbite-react'
 import { Link } from 'react-router-dom'
 import SearchIcon from '@mui/icons-material/Search';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch} from 'react-redux';
+import { toggle } from '../redux/theme/ThemeSlice';
 const Header = () => {
   const location=useLocation()
   const {currentUser}=useSelector(state=>state.user)
+  const {theme_style}=useSelector(state=>state.theme)
+  const dispatch=useDispatch()
+  const onHandleThemeMode=()=>{
+      //useDispatch(toggle())
+      dispatch(toggle())
+  }
   return (
     <Navbar className='border-b-2'>
        <Link to="/" className=' self-center no-underline text-sm lg:text-xl text-white'>
@@ -34,8 +42,11 @@ const Header = () => {
       
       
       <div className='flex flex-row flex-row gap-2 items-center md:order-2'>
-        <Button className='w-12 h-10 hidden sm:inline-flex' pill color='gray'>
-          <ModeNightIcon/>
+        <Button className='w-12 h-10 hidden sm:inline-flex' pill color='gray'  onClick={onHandleThemeMode}>
+          {
+            theme_style==='light'?<LightModeIcon/>
+            : <ModeNightIcon />
+          }    
         </Button>
         {
             currentUser?(
