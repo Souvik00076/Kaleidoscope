@@ -5,7 +5,6 @@ import DashboardProfile from '../components/DashboardProfile'
 const Dashboard = () => {
   const location=useLocation()
   const [tab,setTab]=useState('')
-
   useEffect(()=>{
       const searchParams=new URLSearchParams(location.search)
       const tabUrlParam=searchParams.get('tab')
@@ -14,7 +13,7 @@ const Dashboard = () => {
       }
   },[location])
   return (
-    <div className='flex items-center'>
+    <div className='flex flex-col lg:flex-row min-h-screen gap-4'>
       <DashboardSideBar  prop={tab}/>
       {
         tab==='profile' &&  <DashboardProfile/>

@@ -6,8 +6,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Link } from 'react-router-dom';
 const DashboardSideBar = (tab) => {
     return (
-        <div className='h-screen'>
-            <Sidebar>
+           <Sidebar>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     <Link to='/dashboard?tab=profile'>
@@ -23,8 +22,7 @@ const DashboardSideBar = (tab) => {
                     </Sidebar.Item>
                 </Sidebar.ItemGroup>
             </Sidebar.Items>
-        </Sidebar>
-        </div>
+        </Sidebar>        
   )
 }
 

@@ -54,16 +54,18 @@ const Header = () => {
               arrowIcon={false}
                 inline
                 label={
-                  <Avatar img={currentUser.data.photourl} rounded />
+                <Avatar img={currentUser.data.photourl} rounded />
                 }
               >
               <Dropdown.Header className='flex flex-col'>
                 {currentUser.data.username}
                 <span className='text-gray-400'>{currentUser.data.email}</span> 
                 </Dropdown.Header>
+              <Link to='/dashboard?tab=profile'>
               <Dropdown.Item>
                 Profile
               </Dropdown.Item>
+              </Link>
               <Dropdown.Divider />
               <Dropdown.Item>
                 Sign Out
