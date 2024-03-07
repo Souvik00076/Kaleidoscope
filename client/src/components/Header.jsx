@@ -13,7 +13,7 @@ const Header = () => {
   const {theme_style}=useSelector(state=>state.theme)
   const dispatch=useDispatch()
   const onHandleThemeMode=()=>{
-      //useDispatch(toggle())
+      
       dispatch(toggle())
   }
   return (
