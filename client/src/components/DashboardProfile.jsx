@@ -1,6 +1,9 @@
 import { Button, TextInput } from 'flowbite-react'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import CameraIcon from '@mui/icons-material/Camera';
+
+
 const DashboardProfile = () => {
     const {currentUser}=useSelector(state=>state.user)
     return (
@@ -8,8 +11,8 @@ const DashboardProfile = () => {
       <form className='flex flex-col'>
         <div className='h-32 w-32 self-center cursor-pointer shadow-lg rounded-full mb-8'>
         <img src={currentUser.data.photourl} alt="" className='rounded-full w-full h-full object-cover border-8 border-[lightgray] '/>
+       {/*  <CameraIcon className='left-0 right-0'/> */}
         </div>
-        
         <TextInput value={currentUser.data.username} type='text' className='mb-4'/>
         <TextInput value={currentUser.data.email} type='email' className='mb-4'/>
         <TextInput placeholder='Password' type='password' className='mb-4'/>

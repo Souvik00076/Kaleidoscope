@@ -13,7 +13,7 @@ const Dashboard = () => {
       }
   },[location])
   return (
-    <div className='flex flex-col lg:flex-row min-h-screen gap-4'>
+    <div className='flex flex-col lg:flex-row  gap-4'>
       <DashboardSideBar  prop={tab}/>
       {
         tab==='profile' &&  <DashboardProfile/>
