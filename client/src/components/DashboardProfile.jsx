@@ -1,15 +1,18 @@
 import { Button, TextInput } from 'flowbite-react'
 import {React,useState,useRef,useEffect} from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import CameraIcon from '@mui/icons-material/Camera';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import app from '../firebase';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css'
+
 
 const DashboardProfile = () => {
     const {currentUser}=useSelector(state=>state.user)
     const [profileImageFile,setProfileImageFile]=useState(null)
     const [profileImageUrl,setProfileImageUrl]=useState(null)
-    const [profileImageUploadProgress,setProfileImageUploadProgress]=useState(0)
+    const [profileImageUploadProgress,setProfileImageUploadProgress]=useState(null)
     const [profileImageUploadError,setProfileImageUploadError]=useState(null)
     const profileImagePickerRef=useRef()
 
@@ -40,13 +43,16 @@ const DashboardProfile = () => {
         },
         (error)=>{
           setProfileImageUploadError('Could Not upload image. Image file size must be less than 1MB')
+          setProfileImageUploadProgress(null)
         },
         ()=>{
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl)=>{
             setProfileImageUrl(downloadUrl)
+            setProfileImageUploadProgress(null)
           })
         }
       )
+      
     }
 
     return (
@@ -60,14 +66,37 @@ const DashboardProfile = () => {
         ref={profileImagePickerRef}
         />
 
-        <div className='h-32 w-32 self-center cursor-pointer shadow-lg rounded-full mb-8'>
+        <div className='relative h-32 w-32 self-center cursor-pointer shadow-lg rounded-full mb-8'>
+        {
+          profileImageUploadProgress &&
+          (
+            <CircularProgressbar value={profileImageUploadProgress || 0} 
+              text={`${profileImageUploadProgress}%`}
+              strokeWidth={5}
+              styles={{
+                root:{
+                  width:'100%',
+                  height:'100%',
+                  position:'absolute',
+                  top:0,
+                  left:0,
+                },
+                path: {
+                  stroke:`rgba(62,152,199),${profileImageUploadProgress/100}`
+                }
+              }}
+           />
+          )
+        }
         <img 
         src={profileImageUrl || currentUser.data.photourl} 
         alt="" 
-        className='rounded-full w-full h-full object-cover border-8 border-[lightgray]'
+        className={`rounded-full w-full h-full object-cover border-8 border-[lightgray]
+        ${profileImageUploadProgress && profileImageUploadProgress<100 && 'opacity-60'}
+        `}
+
         onClick={()=>profileImagePickerRef.current.click()}
         />
-       {/*  <CameraIcon className='left-0 right-0'/> */}
         </div>
         <TextInput value={currentUser.data.username} type='text' className='mb-4'/>
         <TextInput value={currentUser.data.email} type='email' className='mb-4'/>
