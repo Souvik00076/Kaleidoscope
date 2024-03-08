@@ -28,7 +28,7 @@ const signInUser=async (req,res)=>{
     if(!isMatched){
         throw new ForBiddenError('Invalid password')
     }
-    const token=jwt.sign({id:user._id},'secret')
+    const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
     const {password,...rest}=user._doc
     res.
     status(StatusCodes.OK).
@@ -46,7 +46,7 @@ const authSignInUser=async (req,res)=>{
         const password=email+username+Math.random()*100
         user=await User.create({username,email,password,photourl})
     }
-    const token=jwt.sign({id:user._id},'secret')
+    const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
     const {password,...rest}=user._doc
     res.
     status(StatusCodes.OK).
