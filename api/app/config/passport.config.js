@@ -11,14 +11,14 @@ const jwtStrategy=new JWTStrategy({
     },
     async(jwtPayload,done)=>{
          const {id,iat}=jwtPayload
+         try{
          const user=await User.findById({_id:id})
-         
-         if(user){
-        
-           return  done(null,user)
-         }
-         return done(null,false)
-         
+            if(user){
+                return  done(null,user)     
+            }
+        }catch(error){
+            done(error,false)
+        }   
     }
 )
 passport.use(jwtStrategy)

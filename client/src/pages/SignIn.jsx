@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { HiInformationCircle } from 'react-icons/hi'
 import { MESSAGES,ROUTES } from '../constants.js'
-import { useNavigate,Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {signInStart,signInSuccess,signInFailure} from '../redux/user/UserSlice'
+import {processStart,signInSuccess,processFailure} from '../redux/user/UserSlice'
 import {  useDispatch,useSelector } from 'react-redux'
 import GoogleAuth from '../components/GoogleAuth'
 
@@ -26,10 +26,10 @@ const SignIn = () => {
   const onFormSubmit=async(e)=>{
       e && e.preventDefault()
       if(!formData.email || !formData.password){
-        dispatch(signInFailure(MESSAGES.field_empty_error))
+        dispatch(processFailure(MESSAGES.field_empty_error))
         return 
       }
-      dispatch(signInStart())
+      dispatch(processStart())
       try{
         const res=await axios({
           headers:{
@@ -45,10 +45,10 @@ const SignIn = () => {
          navigate('/',{replace:true})
           
           }
-        else dispatch(signInFailure(data.msg))
+        else dispatch(processFailure(data.msg))
 
     }catch(err){
-      dispatch(signInFailure(err.message))
+      dispatch(processFailure(err.message))
     }
   }
   return (

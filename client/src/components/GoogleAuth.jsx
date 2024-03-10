@@ -3,13 +3,13 @@ import React from 'react'
 import GoogleIcon from '@mui/icons-material/Google';
 import {GoogleAuthProvider,signInWithPopup,getAuth} from 'firebase/auth'
 import app from '../firebase';
-import { useSelector,useDispatch } from 'react-redux';
-import { signInSuccess,signInFailure } from '../redux/user/UserSlice';
+import { useDispatch } from 'react-redux';
+import { signInSuccess,processFailure } from '../redux/user/UserSlice';
 import axios from 'axios'
 import { ROUTES } from '../constants';
 import { useNavigate } from 'react-router-dom';
 const GoogleAuth = () => {
-  const {currentUser,loading,error}=useSelector(state=>state.user)
+  
   const dispatch=useDispatch()
   const navigate=useNavigate()
 
@@ -35,7 +35,7 @@ const GoogleAuth = () => {
             navigate('/',{replace:true})
           }
     }catch(err){
-        dispatch(signInFailure(err))
+        dispatch(processFailure(err))
         console.log(err)
     }
   }
