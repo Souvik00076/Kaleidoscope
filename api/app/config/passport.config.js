@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { Strategy as JWTStrategy,ExtractJwt } from 'passport-jwt'
-
+import User from '../http/model/user.model.js'
 const jwtSecret='secret'
 
 const jwtStrategy=new JWTStrategy({
@@ -9,8 +9,16 @@ const jwtStrategy=new JWTStrategy({
     ]),
     secretOrKey:jwtSecret,
     },
-    (jwtPayload,done)=>{
-        console.log(jwtPayload)
+    async(jwtPayload,done)=>{
+         const {id,iat}=jwtPayload
+         const user=await User.findById({_id:id})
+         
+         if(user){
+        
+           return  done(null,null)
+         }
+         return done(null,false)
+         
     }
 )
 passport.use(jwtStrategy)

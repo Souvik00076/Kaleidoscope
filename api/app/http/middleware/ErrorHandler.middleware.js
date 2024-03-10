@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 const ErrorHandler=(err,req,res,next)=>{
-    console.log(err)
+    if(err){
     let customError = {
         statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
         msg: err.message || 'Something went wrong try again later',
@@ -12,6 +12,8 @@ const ErrorHandler=(err,req,res,next)=>{
           .join(',')
     }
     return res.status(customError.statusCode).json({success:false, msg: customError.msg })
+    }
+    next()
 }
 
 export default ErrorHandler

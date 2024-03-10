@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
-import 'express-async-errors'
+
 import { connectDb } from './app/config/connection.database.js '
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
@@ -17,9 +17,11 @@ const app=express()
 app.use(express.json())
 app.use(cors())
 app.use(cookieParser())
+
 app.use(passport.initialize())
+
 app.use('/api/v1/auth/',authRouter)
-app.use('/api/v1/user/',passport.authenticate('jwt',{session:false}),userRouter)
+app.use('/api/v1/user/',userRouter)
 app.use(ErrorHandler)
 app.use(NotFoundHandler)
 
