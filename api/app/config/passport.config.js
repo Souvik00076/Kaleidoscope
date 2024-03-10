@@ -15,7 +15,7 @@ const jwtStrategy=new JWTStrategy({
          
          if(user){
         
-           return  done(null,null)
+           return  done(null,user)
          }
          return done(null,false)
          
